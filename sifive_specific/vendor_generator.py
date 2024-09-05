@@ -88,14 +88,14 @@ class RIFType:
     v = parse_rif_vector_type(typename, is_always_lmul1)
     if v is None:
       v = parse_rif_scalar_type(typename)
-    elif v: # and is_force_vector: # why need is_force_vector
+    elif v or is_force_vector: # why need is_force_vector
         v0 = v[0].replace("Scalar", "OneD")
         v1 = f"V{v[1][1:]}"
         v2 = f"V{v[2][1:]}"
         v = (v0, v1, v2)
     else:
       raise Exception(f"Unhandled type '{typename}'.")
-    self.rif_type = v[0]
+    self.rif_type = v[0] #(int|uint|float|bfloat)
     self.short_type_name = v[1]
     self.sig = v[2]
 
